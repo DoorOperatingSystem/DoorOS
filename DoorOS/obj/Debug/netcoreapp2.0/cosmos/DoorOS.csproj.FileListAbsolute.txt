@@ -1,0 +1,10 @@
+C:\Users\hclark7\Documents\Github\DoorOS\DoorOS\bin\Debug\netcoreapp2.0\cosmos\DoorOS.deps.json
+C:\Users\hclark7\Documents\Github\DoorOS\DoorOS\bin\Debug\netcoreapp2.0\cosmos\DoorOS.dll
+C:\Users\hclark7\Documents\Github\DoorOS\DoorOS\bin\Debug\netcoreapp2.0\cosmos\DoorOS.pdb
+C:\Users\hclark7\Documents\Github\DoorOS\DoorOS\obj\Debug\netcoreapp2.0\cosmos\DoorOS.csproj.AssemblyReference.cache
+C:\Users\hclark7\Documents\Github\DoorOS\DoorOS\obj\Debug\netcoreapp2.0\cosmos\DoorOS.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hclark7\Documents\Github\DoorOS\DoorOS\obj\Debug\netcoreapp2.0\cosmos\DoorOS.AssemblyInfoInputs.cache
+C:\Users\hclark7\Documents\Github\DoorOS\DoorOS\obj\Debug\netcoreapp2.0\cosmos\DoorOS.AssemblyInfo.cs
+C:\Users\hclark7\Documents\Github\DoorOS\DoorOS\obj\Debug\netcoreapp2.0\cosmos\DoorOS.csproj.CoreCompileInputs.cache
+C:\Users\hclark7\Documents\Github\DoorOS\DoorOS\obj\Debug\netcoreapp2.0\cosmos\DoorOS.dll
+C:\Users\hclark7\Documents\Github\DoorOS\DoorOS\obj\Debug\netcoreapp2.0\cosmos\DoorOS.pdb
