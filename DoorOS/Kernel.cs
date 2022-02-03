@@ -13,7 +13,6 @@ namespace DoorOS
         protected override void BeforeRun()
         {
             Console.Clear();
-            //Console.WriteLine("\nDoorOS booted successfully");
             GraphicsHandler.Logo();
         }
 
