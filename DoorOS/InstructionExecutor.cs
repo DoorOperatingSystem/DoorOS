@@ -14,7 +14,7 @@ namespace DoorOS
                 Console.WriteLine("- cls/clear = clears the screen");
                 Console.WriteLine("- exit/shutdown/stop/quit = Foce shutdowns the OS");
                 Console.WriteLine("- restart/reboot = Restarts the OS");
-                Console.WriteLine("- return/main frame/close = Closes the instruction frame and opens the Main frame");
+                Console.WriteLine("- home/main/close = Closes the instruction frame and opens the Main frame");
                 Console.WriteLine("- file explorer/files/file search = View all files in a specific directory");
                 Console.WriteLine("- read file/get file contents = Reads a file and displays it's contents");
                 Console.WriteLine("- logo/flex = shows of the cool logo thingy");
@@ -54,9 +54,9 @@ namespace DoorOS
             }
 
             // Exit to main frame
-            else if (command == "return" || command == "main frame" || command == "close")
+            else if (command == "home" || command == "main" || command == "close")
             {
-                Kernel.currentPanel = "main frame";
+                Kernel.currentPanel = Panel.MainPanel;
                 Doorframe.PanelController.MainFrame();
             }
 
@@ -107,12 +107,6 @@ namespace DoorOS
                 {
                     Console.WriteLine(fileContents);
                 }
-            }
-
-            // Show logo
-            else if (command == "logo" || command == "flex")
-            {
-                Doorframe.GraphicsRenderer.Logo();
             }
 
             // ERROR

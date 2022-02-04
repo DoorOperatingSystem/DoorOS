@@ -6,11 +6,17 @@ using Sys = Cosmos.System;
 
 namespace DoorOS
 {
+    public enum Panel
+    {
+        InstructionPanel,
+        MainPanel
+    }
+
     public class Kernel : Sys.Kernel
     {
         public static CosmosVFS fileSystem = new Sys.FileSystem.CosmosVFS();
 
-        public static string currentPanel = "none";
+        public static Panel currentPanel = Panel.InstructionPanel;
         public static string currentDir = "0:/";
 
         protected override void BeforeRun()
@@ -28,23 +34,18 @@ namespace DoorOS
         {
             var keyInput = Sys.KeyboardManager.ReadKey();
 
-            if (keyInput.Key == Sys.ConsoleKeyEx.Enter)
+            if (currentPanel == Panel.InstructionPanel)
             {
-                currentPanel = "instruction inputter";
                 Console.Clear();
                 Doorframe.GraphicsRenderer.Logo();
                 GetInstructionInput();
             }
-            else if (keyInput.Key == Sys.ConsoleKeyEx.LWin)
-            {
-                currentPanel = "main frame";
-                Doorframe.PanelController.MainFrame();
-            }
 
-            if (currentPanel == "instruction inputter")
+            if (keyInput.Key == Sys.ConsoleKeyEx.LWin && currentPanel != Panel.InstructionPanel)
             {
-                GetInstructionInput();
-            }
+                currentPanel = Panel.MainPanel;
+                Doorframe.PanelController.MainFrame();
+            }   
         }
 
         static void GetInstructionInput()
