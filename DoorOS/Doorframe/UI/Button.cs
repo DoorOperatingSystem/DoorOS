@@ -5,6 +5,7 @@ namespace DoorOS.Doorframe.UI
     public class Button
     {
         private string buttonText;
+        public bool selected = false;
 
         public void init(string text)
         {
@@ -13,9 +14,15 @@ namespace DoorOS.Doorframe.UI
 
         public void display()
         {
+            string displayText = buttonText;
+            if (selected)
+            {
+                displayText = ">> " + buttonText + " <<";
+            }
+
             string topEdgeStuff = "/-";
             string bottomEdgeStuff = "\\-";
-            for (var i = buttonText.Length; i > 0; i--)
+            for (var i = displayText.Length; i > 0; i--)
             {
                 topEdgeStuff += "-";
                 bottomEdgeStuff += "-";
@@ -24,7 +31,7 @@ namespace DoorOS.Doorframe.UI
             bottomEdgeStuff += "-/";
 
             Console.WriteLine(topEdgeStuff);
-            Console.WriteLine("| " + buttonText + " |");
+            Console.WriteLine("| " + displayText + " |");
             Console.WriteLine(bottomEdgeStuff);
         }
     }

@@ -11,13 +11,12 @@ namespace DoorOS
             if (command == "help")
             {
                 Console.WriteLine("- help = Shows this information");
-                Console.WriteLine("- cls/clear = clears the screen");
-                Console.WriteLine("- exit/shutdown/stop/quit = Foce shutdowns the OS");
-                Console.WriteLine("- restart/reboot = Restarts the OS");
-                Console.WriteLine("- home/main/close = Closes the instruction frame and opens the Main frame");
-                Console.WriteLine("- file explorer/files/file search = View all files in a specific directory");
-                Console.WriteLine("- read file/get file contents = Reads a file and displays it's contents");
-                Console.WriteLine("- logo/flex = shows of the cool logo thingy");
+                Console.WriteLine("- shutdown = Shutdowns the OS");
+                Console.WriteLine("- restart = Restarts the OS");
+                Console.WriteLine("- cls/clear = Clears the screen");
+                Console.WriteLine("- home = Opens the home panel");
+                Console.WriteLine("- file explorer = View all files in a specific directory");
+                Console.WriteLine("- read file = Reads a file and displays it's contents");
             }
 
             // Clear the screen
@@ -28,7 +27,7 @@ namespace DoorOS
             }
 
             // Shutdown the OS
-            else if (command == "exit" || command == "shutdown" || command == "stop" || command == "quit")
+            else if (command == "shutdown")
             {
                 Console.Clear();
 
@@ -45,7 +44,7 @@ namespace DoorOS
             }
 
             // Restart the OS
-            else if (command == "restart" || command == "reboot")
+            else if (command == "restart")
             {
                 Console.Clear();
                 Console.WriteLine("Restarting...");
@@ -54,10 +53,11 @@ namespace DoorOS
             }
 
             // Exit to main frame
-            else if (command == "home" || command == "main" || command == "close")
+            else if (command == "home")
             {
-                Kernel.currentPanel = Panel.MainPanel;
-                Doorframe.PanelController.MainFrame();
+                Kernel.currentPanel = Panel.Home;
+                Doorframe.PanelController.instructorOpen = false;
+                //Doorframe.PanelController.Home();
             }
 
             else if (command == "goto")
@@ -80,7 +80,7 @@ namespace DoorOS
             }
 
             // View all files in a directory
-            else if (command == "file explorer" || command == "files" || command == "file search")
+            else if (command == "file explorer")
             {
                 Console.Write("Enter directory path: ");
                 string dirPath = Console.ReadLine();
@@ -92,7 +92,7 @@ namespace DoorOS
             }
 
             // Read the contents of a file
-            else if (command == "read file" || command == "get file contents")
+            else if (command == "read file")
             {
                 Console.Write("Enter file path: ");
                 string filePath = Console.ReadLine();

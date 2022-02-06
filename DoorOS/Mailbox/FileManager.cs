@@ -20,7 +20,7 @@ namespace DoorOS.Mailbox
                     return Encoding.Default.GetString(text_to_read);
                 }
             }
-            catch (Exception e)
+            catch
             {
                 return "UH OH AN ERROR HAS OCCURED!!!";
             }
