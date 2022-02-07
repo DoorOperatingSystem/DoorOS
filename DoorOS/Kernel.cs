@@ -60,6 +60,23 @@ namespace DoorOS
                 {
                     Doorframe.PanelController.homeButtonIDs += 1;
                 }
+
+                if (keyInput.Key == Sys.ConsoleKeyEx.Enter)
+                {
+                    if (Doorframe.PanelController.homeButtonIDs == 0)
+                    {
+                        currentPanel = Panel.Instructor;
+                    }
+                    else if (Doorframe.PanelController.homeButtonIDs == 1)
+                    {
+                        Shutdown();
+                    }
+                    else if (Doorframe.PanelController.homeButtonIDs == 2)
+                    {
+                        ReStart();
+                    }
+                }
+
                 if (keyInput.Key == Sys.ConsoleKeyEx.LWin)
                 {
                     currentPanel = Panel.Instructor;
@@ -100,6 +117,30 @@ namespace DoorOS
             string userInput = Console.ReadLine();
 
             InstructionExecutor.Execute(userInput);
+        }
+
+        public static void Shutdown()
+        {
+            Console.Clear();
+
+            for (var shutdownPercent = 0; shutdownPercent <= 100; shutdownPercent += 5)
+            {
+                Console.WriteLine($"Shutting down... ({shutdownPercent}%)");
+                Cosmos.HAL.Global.PIT.Wait(10);
+            }
+
+            Cosmos.HAL.Global.PIT.Wait(1000);
+            Console.WriteLine("Shutdown process complete, see ya next time!");
+            Cosmos.HAL.Global.PIT.Wait(1000);
+            Sys.Power.Shutdown();
+        }
+
+        public static void ReStart()
+        {
+            Console.Clear();
+            Console.WriteLine("Restarting...");
+            Cosmos.HAL.Global.PIT.Wait(3000);
+            Sys.Power.Reboot();
         }
 
     }

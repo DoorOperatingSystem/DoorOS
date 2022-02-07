@@ -8,96 +8,62 @@ namespace DoorOS
     {
         public static void Execute(string command)
         {
-            if (command == "help")
+            string[] commandArgs = command.Split(" ");
+
+            if (commandArgs[0] == "help")
             {
                 Console.WriteLine("- help = Shows this information");
-                Console.WriteLine("- shutdown = Shutdowns the OS");
-                Console.WriteLine("- restart = Restarts the OS");
                 Console.WriteLine("- cls/clear = Clears the screen");
                 Console.WriteLine("- home = Opens the home panel");
-                Console.WriteLine("- file explorer = View all files in a specific directory");
-                Console.WriteLine("- read file = Reads a file and displays it's contents");
+                Console.WriteLine("- goto <path> = Changes the current directory");
+                Console.WriteLine("- explorer = View all files in a specific directory");
+                Console.WriteLine("- read <file name> = Reads a file and displays it's contents");
             }
 
             // Clear the screen
-            else if (command == "cls" || command == "clear")
+            else if (commandArgs[0] == "cls" || commandArgs[0] == "clear")
             {
                 Console.Clear();
                 Doorframe.GraphicsRenderer.Logo();
             }
 
-            // Shutdown the OS
-            else if (command == "shutdown")
-            {
-                Console.Clear();
-
-                for (var shutdownPercent = 0; shutdownPercent <= 100; shutdownPercent += 10)
-                {
-                    Console.WriteLine($"Shutting down... ({shutdownPercent}%)");
-                    Cosmos.HAL.Global.PIT.Wait(100);
-                }
-
-                Cosmos.HAL.Global.PIT.Wait(1000);
-                Console.WriteLine("Shutdown process complete, see ya next time!");
-                Cosmos.HAL.Global.PIT.Wait(1000);
-                Sys.Power.Shutdown();
-            }
-
-            // Restart the OS
-            else if (command == "restart")
-            {
-                Console.Clear();
-                Console.WriteLine("Restarting...");
-                Cosmos.HAL.Global.PIT.Wait(3000);
-                Sys.Power.Reboot();
-            }
-
             // Exit to main frame
-            else if (command == "home")
+            else if (commandArgs[0] == "home")
             {
                 Kernel.currentPanel = Panel.Home;
                 Doorframe.PanelController.instructorOpen = false;
                 //Doorframe.PanelController.Home();
             }
 
-            else if (command == "goto")
+            else if (commandArgs[0] == "goto")
             {
-                Console.Write("Enter directory path: ");
-                string dirPath = Console.ReadLine();
-
-                if (dirPath == "previous")
+                if (commandArgs[1] == "previous")
                 {
                     Console.WriteLine("hold on there partner, that don't work yet");
                 }
-                else if (dirPath == "root" || dirPath == "top")
+                else if (commandArgs[1] == "root" || commandArgs[1] == "top")
                 {
                     Kernel.currentDir = "0:/";
                 }
                 else
                 {
-                    Kernel.currentDir += dirPath + "/";
+                    Kernel.currentDir += commandArgs[1] + "/";
                 }
             }
 
             // View all files in a directory
-            else if (command == "file explorer")
+            else if (commandArgs[0] == "explorer")
             {
-                Console.Write("Enter directory path: ");
-                string dirPath = Console.ReadLine();
-
-                foreach (var directoryEntry in Mailbox.DataGetter.GetDirectoryContents(dirPath))
+                foreach (var directoryEntry in Mailbox.DataGetter.GetDirectoryContents(Kernel.currentDir))
                 {
                     Console.WriteLine(directoryEntry.mName);
                 }
             }
 
             // Read the contents of a file
-            else if (command == "read file")
+            else if (commandArgs[0] == "read")
             {
-                Console.Write("Enter file path: ");
-                string filePath = Console.ReadLine();
-
-                string fileContents = Mailbox.FileManager.ReadFile(filePath);
+                string fileContents = Mailbox.FileManager.ReadFile(Kernel.currentDir + commandArgs[1]);
 
                 if (fileContents == "UH OH AN ERROR HAS OCCURED!!!")
                 {
