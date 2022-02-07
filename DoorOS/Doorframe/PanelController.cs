@@ -8,26 +8,28 @@ namespace DoorOS.Doorframe
     {
         public static bool instructorOpen = false;
 
-        public static bool[] homeButtons = new bool[] {
-            true,
-            false
-        };
+        public static int homeButtonIDs = 0;
+        public static int maxID = 2;
 
         public static void Home()
         {
-            UI.Button shutdownButton = new UI.Button();
-            shutdownButton.init("Shutdown OS");
-            shutdownButton.selected = homeButtons[0];
+            UI.Button instructorButton = new UI.Button("Goto Instructor", 0);
+            instructorButton.checkSelection(homeButtonIDs);
 
-            UI.Button fancyButton = new UI.Button();
-            fancyButton.init("ooh dynamic button sizes how fancy");
-            fancyButton.selected = homeButtons[1];
+            UI.Button shutdownButton = new UI.Button("Shutdown OS", 1);
+            shutdownButton.checkSelection(homeButtonIDs);
+
+            UI.Button restartButton = new UI.Button("Restart OS", 2);
+            restartButton.checkSelection(homeButtonIDs);
 
             Console.Clear();
             GraphicsRenderer.Logo();
             Console.WriteLine("");
+
+            instructorButton.display();
+            Console.WriteLine("\n");
             shutdownButton.display();
-            fancyButton.display();
+            restartButton.display();
         }
 
         public static void Instructor()

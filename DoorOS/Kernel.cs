@@ -26,6 +26,12 @@ namespace DoorOS
             Console.WriteLine(Mailbox.DataGetter.GetAvaliableSpace());
             Console.WriteLine(Mailbox.DataGetter.GetFileSystemType());
 
+            for (int i = 100; i > 0; i--)
+            {
+                Console.Write(".");
+                Cosmos.HAL.Global.PIT.Wait(10);
+            }
+
             Cosmos.HAL.Global.PIT.Wait(3000);
             Console.Clear();
         }
@@ -34,34 +40,25 @@ namespace DoorOS
         {
             if (currentPanel == Panel.Home)
             {
+                if (Doorframe.PanelController.homeButtonIDs < 0)
+                {
+                    Doorframe.PanelController.homeButtonIDs = 0;
+                }
+                if (Doorframe.PanelController.homeButtonIDs > Doorframe.PanelController.maxID)
+                {
+                    Doorframe.PanelController.homeButtonIDs = Doorframe.PanelController.maxID;
+                }
+
                 Doorframe.PanelController.Home();
 
                 var keyInput = Sys.KeyboardManager.ReadKey();
                 if (keyInput.Key == Sys.ConsoleKeyEx.UpArrow)
                 {
-                    if (Doorframe.PanelController.homeButtons[0])
-                    {
-                        Doorframe.PanelController.homeButtons[1] = true;
-                        Doorframe.PanelController.homeButtons[0] = false;
-                    }
-                    else if (Doorframe.PanelController.homeButtons[1])
-                    {
-                        Doorframe.PanelController.homeButtons[0] = true;
-                        Doorframe.PanelController.homeButtons[1] = false;
-                    }
+                    Doorframe.PanelController.homeButtonIDs -= 1;
                 }
                 if (keyInput.Key == Sys.ConsoleKeyEx.DownArrow)
                 {
-                    if (Doorframe.PanelController.homeButtons[0])
-                    {
-                        Doorframe.PanelController.homeButtons[1] = true;
-                        Doorframe.PanelController.homeButtons[0] = false;
-                    }
-                    else if (Doorframe.PanelController.homeButtons[1])
-                    {
-                        Doorframe.PanelController.homeButtons[0] = true;
-                        Doorframe.PanelController.homeButtons[1] = false;
-                    }
+                    Doorframe.PanelController.homeButtonIDs += 1;
                 }
                 if (keyInput.Key == Sys.ConsoleKeyEx.LWin)
                 {

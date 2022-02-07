@@ -5,33 +5,66 @@ namespace DoorOS.Doorframe.UI
     public class Button
     {
         private string buttonText;
-        public bool selected = false;
+        private bool selected = false;
+        private int buttonID = 0;
 
-        public void init(string text)
+        public Button(string text, int ID)
         {
             this.buttonText = text;
+            this.buttonID = ID;
+        }
+
+        public void checkSelection(int currentID)
+        {
+            if (currentID == this.buttonID)
+            {
+                selected = true;
+            }
+            else
+            {
+                selected = false;
+            }
         }
 
         public void display()
         {
-            string displayText = buttonText;
+            string topEdgeStuff;
+            string bottomEdgeStuff;
+
             if (selected)
             {
-                displayText = ">> " + buttonText + " <<";
+                topEdgeStuff = "/%";
+                bottomEdgeStuff = "\\%";
+                for (var i = this.buttonText.Length; i > 0; i--)
+                {
+                    topEdgeStuff += "%";
+                    bottomEdgeStuff += "%";
+                }
+                topEdgeStuff += "%\\";
+                bottomEdgeStuff += "%/";
             }
-
-            string topEdgeStuff = "/-";
-            string bottomEdgeStuff = "\\-";
-            for (var i = displayText.Length; i > 0; i--)
+            else
             {
-                topEdgeStuff += "-";
-                bottomEdgeStuff += "-";
+                topEdgeStuff = "/-";
+                bottomEdgeStuff = "\\-";
+                for (var i = this.buttonText.Length; i > 0; i--)
+                {
+                    topEdgeStuff += "-";
+                    bottomEdgeStuff += "-";
+                }
+                topEdgeStuff += "-\\";
+                bottomEdgeStuff += "-/";
             }
-            topEdgeStuff += "-\\";
-            bottomEdgeStuff += "-/";
 
             Console.WriteLine(topEdgeStuff);
-            Console.WriteLine("| " + displayText + " |");
+            if (selected)
+            {
+                Console.WriteLine("% " + this.buttonText + " %");
+            }
+            else
+            {
+                Console.WriteLine("| " + this.buttonText + " |");
+            }
             Console.WriteLine(bottomEdgeStuff);
         }
     }
