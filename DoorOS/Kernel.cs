@@ -10,11 +10,14 @@ namespace DoorOS
     {
         Home,
         Instructor,
-        Program
+        Program,
+        BlueScreenOfDeath
     }
 
     public class Kernel : Sys.Kernel
     {
+        public const string VERSION = "snapshot 10a1"; // 1.0
+
         public static CosmosVFS fileSystem = new Sys.FileSystem.CosmosVFS();
 
         public static Panel currentPanel = Panel.Home;
@@ -26,13 +29,19 @@ namespace DoorOS
             Console.WriteLine(Mailbox.DataGetter.GetAvaliableSpace());
             Console.WriteLine(Mailbox.DataGetter.GetFileSystemType());
 
-            for (int i = 100; i > 0; i--)
+            Cosmos.HAL.Global.PIT.Wait(500);
+            Console.Clear();
+
+            Console.WriteLine($"Loading DoorOS {VERSION}");
+            Console.WriteLine("Now 90% bug free!\n");
+
+            for (int i = 200; i > 0; i--)
             {
                 Console.Write(".");
                 Cosmos.HAL.Global.PIT.Wait(10);
             }
 
-            Cosmos.HAL.Global.PIT.Wait(3000);
+            Cosmos.HAL.Global.PIT.Wait(100);
             Console.Clear();
         }
 
@@ -52,6 +61,7 @@ namespace DoorOS
                 Doorframe.PanelController.Home();
 
                 var keyInput = Sys.KeyboardManager.ReadKey();
+
                 if (keyInput.Key == Sys.ConsoleKeyEx.UpArrow)
                 {
                     Doorframe.PanelController.homeButtonIDs -= 1;
@@ -91,6 +101,40 @@ namespace DoorOS
             if (currentPanel == Panel.Instructor)
             {
                 GetInstructionInput();
+            }
+
+            if (currentPanel == Panel.BlueScreenOfDeath)
+            {
+                Console.Clear();
+
+                Console.WriteLine("                                                                               ");
+                Console.WriteLine("             ##                                                                ");
+                Console.WriteLine("   ###      ##            ##      ##  ##    ##       ######    ##    ##        ");
+                Console.WriteLine("   ###     ##             ##      ##  ##    ##      ##    ##   ##    ##        ");
+                Console.WriteLine("           ##             ##      ##  ##    ##     ##      ##  ##    ##        ");
+                Console.WriteLine("           ##             ##      ##  ########     ##      ##  ########        ");
+                Console.WriteLine("           ##             ##      ##  ##    ##     ##      ##  ##    ##        ");
+                Console.WriteLine("   ###     ##              ##    ##   ##    ##      ##    ##   ##    ##        ");
+                Console.WriteLine("   ###      ##              ######    ##    ##       ######    ##    ##        ");
+                Console.WriteLine("             ##                                                                ");
+                Console.WriteLine("                                                                               ");
+                Console.WriteLine("                                                                               ");
+                Console.WriteLine("                          Something that was not expected has happened         ");
+                Console.WriteLine("                                     at this point in time!                    ");
+                Console.WriteLine("                                                                               ");
+                Console.WriteLine("                                                                               ");
+                Console.WriteLine("                                                                               ");
+                Console.WriteLine("                               This is the opposite of good!!!1!               ");
+                Console.WriteLine("                                                                               ");
+                Console.WriteLine("                                                                               ");
+                Console.WriteLine("                                                                               ");
+                Console.WriteLine("                                                                               ");
+                Console.WriteLine("                                                                               ");
+                Console.WriteLine("Press any key to reboot OS...                                                  ");
+
+                Sys.KeyboardManager.ReadKey();
+
+                Sys.Power.Reboot();
             }
 
             //var keyInput = Sys.KeyboardManager.ReadKey();

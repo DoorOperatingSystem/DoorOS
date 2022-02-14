@@ -5,7 +5,8 @@ namespace DoorOS
     public enum ErrorType
     {
         InvalidInstruction,
-        FileReadFailed
+        FileReadFailed,
+        InvalidDir
     }
 
     public class ErrorHandler
@@ -21,6 +22,10 @@ namespace DoorOS
             else if (errorType == ErrorType.FileReadFailed)
             {
                 errMessage = "Failed to read file contents | did you get the file name wrong?";
+            }
+            else if (errorType == ErrorType.InvalidDir)
+            {
+                errMessage = "Invalid Directory | try a different dir";
             }
 
             Console.WriteLine($"ERROR: {errMessage} (errcode: {((int) errorType)})");
